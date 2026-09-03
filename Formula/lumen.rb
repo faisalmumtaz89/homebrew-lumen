@@ -1,0 +1,48 @@
+# frozen_string_literal: true
+#
+# TEMPLATE — do not hand-edit url/version/sha256. release.yml (publish-release →
+# finalize-release.sh) substitutes https://github.com/faisalmumtaz89/Lumen/releases/download/v0.23.0/lumen-v0.23.0-macos-arm64-metal.tar.gz/0.23.0/2601055ca271f390a5d58acceb47570adbe50be64b7e2131c2e36c603b915a7f from the exact
+# macOS tarball that shipped, producing dist/lumen.rb. Copy that generated file
+# into the tap repo (faisalmumtaz89/homebrew-lumen, Formula/lumen.rb).
+#
+# Phase 1 distribution: an UNSIGNED tarball from GitHub Releases. Homebrew installs
+# into its own prefix, so Gatekeeper notarization is not required for `brew install`
+# of a CLI (the llama.cpp model). arm64-only by design (M-series-tuned kernels).
+class Lumen < Formula
+  desc "GPU-resident LLM inference engine for Apple Silicon (Metal)"
+  homepage "https://github.com/faisalmumtaz89/Lumen"
+  url "https://github.com/faisalmumtaz89/Lumen/releases/download/v0.23.0/lumen-v0.23.0-macos-arm64-metal.tar.gz"
+  version "0.23.0"
+  sha256 "2601055ca271f390a5d58acceb47570adbe50be64b7e2131c2e36c603b915a7f"
+  license any_of: ["MIT", "Apache-2.0"] # repo is dual-licensed
+
+  depends_on arch: :arm64    # refuse on Intel rather than ship a broken bottle
+  depends_on macos: :sonoma  # macOS 14+ floor (MSL 3.1)
+
+  def install
+    bin.install "bin/lumen"
+    bin.install "bin/lumen-server"
+    prefix.install "LICENSE-APACHE", "LICENSE-MIT", "THIRD_PARTY_NOTICES.md"
+  end
+
+  def caveats
+    <<~EOS
+      Lumen runs on Apple Silicon with the Metal backend (no Xcode/Python/CUDA).
+      Shaders compile at first launch (~1 s).
+
+      Pull a model and chat:
+        lumen pull qwen3.5-9b:q8_0
+        lumen "Write a haiku about Rust"
+
+      Or run the OpenAI-compatible server:
+        lumen-server --model qwen3.5-9b --quant q8_0 --port 8000
+
+      Models cache under ~/.cache/lumen (override with LUMEN_CACHE_DIR).
+    EOS
+  end
+
+  test do
+    assert_match "lumen", shell_output("#{bin}/lumen --help")
+    assert_match "lumen-server", shell_output("#{bin}/lumen-server --help")
+  end
+end
