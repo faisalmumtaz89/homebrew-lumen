@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 #
 # TEMPLATE — do not hand-edit url/version/sha256. release.yml (publish-release →
-# finalize-release.sh) substitutes https://github.com/faisalmumtaz89/Lumen/releases/download/v0.23.0/lumen-v0.23.0-macos-arm64-metal.tar.gz/0.23.0/2601055ca271f390a5d58acceb47570adbe50be64b7e2131c2e36c603b915a7f from the exact
+# finalize-release.sh) fills the url, version and sha256 placeholders from the exact
 # macOS tarball that shipped, producing dist/lumen.rb. Copy that generated file
 # into the tap repo (faisalmumtaz89/homebrew-lumen, Formula/lumen.rb).
 #
