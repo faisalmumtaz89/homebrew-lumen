@@ -11,9 +11,9 @@
 class Lumen < Formula
   desc "GPU-resident LLM inference engine for Apple Silicon (Metal)"
   homepage "https://github.com/faisalmumtaz89/Lumen"
-  url "https://github.com/faisalmumtaz89/Lumen/releases/download/v0.24.0/lumen-v0.24.0-macos-arm64-metal.tar.gz"
-  version "0.24.0"
-  sha256 "62a287d6c278c94dde292083234f2ac69c3f9fdc2d3db3fd030eac58be77046c"
+  url "https://github.com/faisalmumtaz89/Lumen/releases/download/v0.25.0/lumen-v0.25.0-macos-arm64-metal.tar.gz"
+  version "0.25.0"
+  sha256 "9dc6e260e938e054b2a3416c57241fc220fe51f7ff681b8e59bb844d5c017e49"
   license any_of: ["MIT", "Apache-2.0"] # repo is dual-licensed
 
   depends_on arch: :arm64    # refuse on Intel rather than ship a broken bottle
