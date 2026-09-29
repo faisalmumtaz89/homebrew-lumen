@@ -11,9 +11,9 @@
 class Lumen < Formula
   desc "GPU-resident LLM inference engine for Apple Silicon (Metal)"
   homepage "https://github.com/faisalmumtaz89/Lumen"
-  url "https://github.com/faisalmumtaz89/Lumen/releases/download/v0.36.1/lumen-v0.36.1-macos-arm64-metal.tar.gz"
-  version "0.36.1"
-  sha256 "0755f04374d6e7c537229e5c620aa27acfea10cdadeb787b403966cdac0fe103"
+  url "https://github.com/faisalmumtaz89/Lumen/releases/download/v0.37.0/lumen-v0.37.0-macos-arm64-metal.tar.gz"
+  version "0.37.0"
+  sha256 "6185774edb07e5bb64f640301c641e4ff73adf91f0335990de2b3b64522afc91"
   license any_of: ["MIT", "Apache-2.0"] # repo is dual-licensed
 
   depends_on arch: :arm64    # refuse on Intel rather than ship a broken bottle
@@ -32,7 +32,7 @@ class Lumen < Formula
 
       Pull a model and chat:
         lumen pull qwen3.5-9b:q8_0
-        lumen "Write a haiku about Rust"
+        lumen run qwen3.5-9b:q8_0 "Write a haiku about light"
 
       Or run the OpenAI-compatible server:
         lumen-server --model qwen3.5-9b --quant q8_0 --port 8000
